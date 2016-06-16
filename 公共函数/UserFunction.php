@@ -1,5 +1,6 @@
 <?php 
 
+//通过id获取niu_user库中user表中的realname
 function realName($id) {
 
 		$model = M('user',NULL ,'user');
@@ -12,6 +13,7 @@ function realName($id) {
 		return ($realname[0]['realname'] ? $realname[0]['realname'] : "未知用户");
 	}
 
+//通过id获取niu_user库中user表中的image，并拼接成url
 function getImgUrl($id) {
 
 		$model = M('user',NULL ,'user');

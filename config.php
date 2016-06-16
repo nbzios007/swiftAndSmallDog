@@ -63,6 +63,6 @@ return array(
 
 ),
 
-"LOAD_EXT_FILE"=>"UserFunction"
+"LOAD_EXT_FILE"=>"UserFunction,ToolFunction"
 
 );
