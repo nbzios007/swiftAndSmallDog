@@ -1,17 +1,9 @@
 <?php
-$con6 = mysql_connect('115.28.132.137','root','thomasandhisfriends','blizzard');
-mysql_select_db('blizzard',$con6);
 
-if(!$con6){  
-    die('无法连接服务器' .mysql_error());
-}
-mysql_query("SET NAMES 'UTF8'");
-date_default_timezone_set('Etc/GMT-8'); 
 
-function appToken($pwd, $phone, $LoginClient, $DeviceNumber){
+function appToken($userid, $pwd, $phone, $LoginClient, $DeviceNumber){
  $key = create_guid();
    // 加密
-
 $iv = "";
 $info = array(
     '0x13','0x34','0x56','0x78',
@@ -33,9 +25,57 @@ if ($userInfo["password"]) {
 $encrypted = mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $privateKey, pkcs5_pad($key), MCRYPT_MODE_CBC, $iv);
 
 $token=base64_encode($encrypted);
-$res = mysql_query("INSERT INTO blizzard.encrypt (Token,Phone,LoginClient,DeviceNumber) VALUES ($key,$phone,$LoginClient,$DeviceNumber)");
-return $token;
+
+$encrypt = M("encrypt",NULL,'blizzard');
+$ishave = $encrypt
+->where("Phone = '$phone'")
+->select();
+
+if ($ishave) {
+	$data =  $encrypt
+	->where("UserID=$userid")
+	->save(
+		array("Token"=>$key,
+			"Phone"=>$phone,
+			"LoginClient"=>$LoginClient,
+			"DeviceNumber"=>$DeviceNumber,
+			"EndTime"=>(time()+21600)
+			));
+}else{
+$data =  $encrypt->
+add(
+	array("UserID"=>$userid,
+			"Token"=>$key,
+			"Phone"=>$phone,
+			"LoginClient"=>$LoginClient,
+			"DeviceNumber"=>$DeviceNumber,
+			"EndTime"=>(time()+21600)
+			));
 }
+return $key;
+}
+
+function verification($token,$userid)
+{
+$encrypt = M("encrypt",NULL,'blizzard');
+
+$ishave = $encrypt
+->field("EndTime")
+->where("UserID = '$userid' and Token = '$token' and EndTime >".time())
+->select();
+
+if ($ishave) {
+		$data =  $encrypt
+	->where("UserID=$userid")
+	->save(array("EndTime"=>(time()+21600)
+			));
+}
+
+return $ishave;
+}
+
+
+
 
 /**
 *
