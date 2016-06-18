@@ -38,28 +38,22 @@ $ishave = $encrypt
 ->where("Phone = '$phone' and DeviceNumber = $DeviceNumber and LoginClient = $LoginClient")
 ->select();
 
-if ($ishave) {
 // 下线所有设备
 		$temp =  $encrypt
 	->where("UserID = $userid and IsUse = 1")
 	->save(
-		array("IsUse = 0"));
+		array("IsUse" => 0));
 
+if ($ishave) {
 // 登录此设备
 	$data =  $encrypt
     ->where("Phone = '$phone' and DeviceNumber = $DeviceNumber and LoginClient = $LoginClient")
 	->save(
 		array("Token"=>$key,
 			"EndTime"=>(time()+21600),
-			"IsUser"=>1
+			"IsUse"=>1
 			));
 }else{
-// 下线所有设备
-		$temp =  $encrypt
-	->where("UserID = $userid and IsUse = 1")
-	->save(
-		array("IsUse = 0"));
-
 // 添加设备
 $data =  $encrypt->
 add(
@@ -70,7 +64,7 @@ add(
 			"DeviceNumber"=>$DeviceNumber,
 			"DeviceInfo"=>$DeviceInfo,
 			"EndTime"=>(time()+21600),
-		    "IsUser"=>1
+		    "IsUse"=>1
 			));
 }
 return $token;
