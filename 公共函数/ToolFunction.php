@@ -15,4 +15,20 @@ function contrastTime($inputTime) {
 function silkbagType($direct) {
 	return $direct % 4;
 }
+
+//删除文件
+function deleteFile ($filepath) {
+
+       if( is_file( $filepath ) ) {
+            if( unlink($filepath) ) {
+            return "删除成功";
+        }
+        else {
+            return "文件删除失败，权限不够";
+        }
+    }
+    else {
+        return "不是有一个有效的文件";
+    }
+}
 ?>

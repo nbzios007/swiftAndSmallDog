@@ -23,6 +23,6 @@ function getImgUrl($id) {
 		-> where ("id='$id'")
 		-> select ();
 
-		return ($image[0]['image'] ? "域名/".$image[0]['image'] : "没有图片");
+		return ($image[0]['image'] ? "域名/".$image[0]['image'] : NULL);
 	}
 ?>
