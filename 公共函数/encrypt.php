@@ -81,7 +81,7 @@ $encrypt = M("encrypt",NULL,'mobile');
 
 // 验证
 $ishave = $encrypt
-->where("UserID = '$userid' and Token = '$key' and IsUse = 1 and EndTime >".time())
+->where("UserID = '$userid' and Token = '$key' and IsUse = 1")
 ->select();
 
 if ($ishave) {
