@@ -75,14 +75,13 @@ return $token;
 token app上传
 userid 用户id
 */
-function verification($token,$userid)
+function verification($key, $userid)
 {
 $encrypt = M("encrypt",NULL,'mobile');
 
 // 验证
 $ishave = $encrypt
-->field("EndTime")
-->where("UserID = '$userid' and Token = '$token' and IsUse = 1 and EndTime >".time())
+->where('UserID = '.$userid.' and Token = '.$key.' and IsUse = 1 and EndTime >'.time())
 ->select();
 
 if ($ishave) {
