@@ -14,16 +14,6 @@ return array(
 'DB_CHARSET'=> 'utf8', // 字符集
 'DB_DEBUG'  =>  TRUE, // 数据库调试模式 开启后可以记录SQL日志 3.2.3新增
 
-//第二个数据库配置
-'ADImage' => array(
-        'db_type'  => 'mysql',
-        'db_user'  => 'root',
-        'db_pwd'   => 'thomasandhisfriends',
-        'db_host'  => '115.28.132.137',
-        'db_port'  => '3306',
-        'db_name'  => 'ios_ad'
-    ),
-
 'blog' => array(
     'DB_TYPE'   => 'mysql', // 数据库类型
 'DB_HOST'   => '115.28.132.137', // 服务器地址
@@ -50,10 +40,10 @@ return array(
 
 ),
 
-'blizzard' => array(
+'mobile' => array(
     'DB_TYPE'   => 'mysql', // 数据库类型
 'DB_HOST'   => '115.28.132.137', // 服务器地址
-'DB_NAME'   => 'blizzard', // 数据库名
+'DB_NAME'   => 'niu_mobile', // 数据库名
 'DB_USER'   => 'root', // 用户名
 'DB_PWD'    => 'thomasandhisfriends', // 密码
 'DB_PORT'   => 3306, // 端口
@@ -63,6 +53,6 @@ return array(
 
 ),
 
-"LOAD_EXT_FILE"=>"UserFunction,ToolFunction,RateFunction,encrypt"
+"LOAD_EXT_FILE"=>"UserFunction,ToolFunction,encrypt,OtherFunction,RateFunction"
 
 );
